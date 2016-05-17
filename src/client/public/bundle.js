@@ -20951,9 +20951,11 @@
 	      });
 	      var newtotals = void 0;
 	      var sumtotals = 0;
+	      var discount = (this.state.carts.length - 1) * 10;
 	      newtotals = _lodash2.default.map(this.state.carts, function (n) {
 	        return n.count * n.price;
 	      });
+	      console.log(newtotals);
 	      var _iteratorNormalCompletion = true;
 	      var _didIteratorError = false;
 	      var _iteratorError = undefined;
@@ -20962,7 +20964,7 @@
 	        for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	          var p = _step.value;
 	
-	          sumtotals += p;
+	          sumtotals += p - content.price * discount / 100;
 	        }
 	      } catch (err) {
 	        _didIteratorError = true;
@@ -20979,8 +20981,7 @@
 	        }
 	      }
 	
-	      var discount = (this.state.carts.length - 1) * 10;
-	      var netPrice = sumtotals - sumtotals * discount / 100;
+	      var netPrice = sumtotals;
 	      this.setState({
 	        totals: netPrice
 	      });

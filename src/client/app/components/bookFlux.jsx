@@ -48,13 +48,14 @@ class CartStore extends Store {
     });
     let newtotals;
     let sumtotals = 0;
+    let discount = (this.state.carts.length - 1) * 10;
     newtotals = _.map(this.state.carts,(n)=> n.count * n.price);
+    console.log(newtotals);
     for(let p of newtotals){
-        sumtotals += p;
+        sumtotals += p - ((content.price * discount) / 100);
     }
     
-    let discount = (this.state.carts.length - 1) * 10;
-    let netPrice = sumtotals - ((sumtotals * discount) / 100)
+    let netPrice = sumtotals;
     this.setState({
         totals: netPrice
     })
