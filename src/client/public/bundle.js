@@ -20964,7 +20964,7 @@
 	                for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	                    var p = _step.value;
 	
-	                    sumtotals += p - content.price * discount / 100;
+	                    sumtotals += p - content.price * newCarts.count * discount / 100;
 	                }
 	            } catch (err) {
 	                _didIteratorError = true;
