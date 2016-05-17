@@ -50,7 +50,7 @@ class CartStore extends Store {
     let sumtotals = 0;
     let discount = (this.state.carts.length - 1) * 10;
     newtotals = _.map(this.state.carts,(n)=> n.count * n.price);
-    console.log(newtotals);
+
     for(let p of newtotals){
         sumtotals += p - ((content.price * discount) / 100);
     }

@@ -20886,125 +20886,125 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var CartActions = function (_Actions) {
-	  _inherits(CartActions, _Actions);
+	    _inherits(CartActions, _Actions);
 	
-	  function CartActions() {
-	    _classCallCheck(this, CartActions);
+	    function CartActions() {
+	        _classCallCheck(this, CartActions);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CartActions).apply(this, arguments));
-	  }
-	
-	  _createClass(CartActions, [{
-	    key: 'addCart',
-	    value: function addCart(title, price) {
-	      return {
-	        title: title,
-	        price: price
-	      };
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(CartActions).apply(this, arguments));
 	    }
-	  }]);
 	
-	  return CartActions;
+	    _createClass(CartActions, [{
+	        key: 'addCart',
+	        value: function addCart(title, price) {
+	            return {
+	                title: title,
+	                price: price
+	            };
+	        }
+	    }]);
+	
+	    return CartActions;
 	}(_flummox.Actions);
 	
 	var CartStore = function (_Store) {
-	  _inherits(CartStore, _Store);
+	    _inherits(CartStore, _Store);
 	
-	  function CartStore(flux) {
-	    _classCallCheck(this, CartStore);
+	    function CartStore(flux) {
+	        _classCallCheck(this, CartStore);
 	
-	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(CartStore).call(this));
+	        var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(CartStore).call(this));
 	
-	    var cartActionIds = flux.getActionIds('carts');
-	    _this2.register(cartActionIds.addCart, _this2.handleAddCart);
-	    _this2.state = {
-	      carts: [],
-	      totals: 0
-	    };
-	    return _this2;
-	  }
-	
-	  _createClass(CartStore, [{
-	    key: 'handleAddCart',
-	    value: function handleAddCart(content) {
-	      var currentCarts = this.state.carts;
-	      var newCarts = void 0;
-	      var targetIndex = _lodash2.default.findIndex(this.state.carts, { title: content.title });
-	      if (targetIndex >= 0) {
-	        newCarts = {
-	          title: content.title,
-	          price: content.price,
-	          count: currentCarts[targetIndex].count + 1
+	        var cartActionIds = flux.getActionIds('carts');
+	        _this2.register(cartActionIds.addCart, _this2.handleAddCart);
+	        _this2.state = {
+	            carts: [],
+	            totals: 0
 	        };
-	        currentCarts[targetIndex] = newCarts;
-	      } else {
-	        newCarts = {
-	          title: content.title,
-	          price: content.price,
-	          count: 1
-	        };
-	        currentCarts.push(newCarts);
-	      }
-	
-	      this.setState({
-	        carts: currentCarts
-	      });
-	      var newtotals = void 0;
-	      var sumtotals = 0;
-	      var discount = (this.state.carts.length - 1) * 10;
-	      newtotals = _lodash2.default.map(this.state.carts, function (n) {
-	        return n.count * n.price;
-	      });
-	      console.log(newtotals);
-	      var _iteratorNormalCompletion = true;
-	      var _didIteratorError = false;
-	      var _iteratorError = undefined;
-	
-	      try {
-	        for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var p = _step.value;
-	
-	          sumtotals += p - content.price * discount / 100;
-	        }
-	      } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	          }
-	        } finally {
-	          if (_didIteratorError) {
-	            throw _iteratorError;
-	          }
-	        }
-	      }
-	
-	      var netPrice = sumtotals;
-	      this.setState({
-	        totals: netPrice
-	      });
+	        return _this2;
 	    }
-	  }]);
 	
-	  return CartStore;
+	    _createClass(CartStore, [{
+	        key: 'handleAddCart',
+	        value: function handleAddCart(content) {
+	            var currentCarts = this.state.carts;
+	            var newCarts = void 0;
+	            var targetIndex = _lodash2.default.findIndex(this.state.carts, { title: content.title });
+	            if (targetIndex >= 0) {
+	                newCarts = {
+	                    title: content.title,
+	                    price: content.price,
+	                    count: currentCarts[targetIndex].count + 1
+	                };
+	                currentCarts[targetIndex] = newCarts;
+	            } else {
+	                newCarts = {
+	                    title: content.title,
+	                    price: content.price,
+	                    count: 1
+	                };
+	                currentCarts.push(newCarts);
+	            }
+	
+	            this.setState({
+	                carts: currentCarts
+	            });
+	            var newtotals = void 0;
+	            var sumtotals = 0;
+	            var discount = (this.state.carts.length - 1) * 10;
+	            newtotals = _lodash2.default.map(this.state.carts, function (n) {
+	                return n.count * n.price;
+	            });
+	
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+	
+	            try {
+	                for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var p = _step.value;
+	
+	                    sumtotals += p - content.price * discount / 100;
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+	
+	            var netPrice = sumtotals;
+	            this.setState({
+	                totals: netPrice
+	            });
+	        }
+	    }]);
+	
+	    return CartStore;
 	}(_flummox.Store);
 	
 	var AppFlux = function (_Flux) {
-	  _inherits(AppFlux, _Flux);
+	    _inherits(AppFlux, _Flux);
 	
-	  function AppFlux() {
-	    _classCallCheck(this, AppFlux);
+	    function AppFlux() {
+	        _classCallCheck(this, AppFlux);
 	
-	    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(AppFlux).call(this));
+	        var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(AppFlux).call(this));
 	
-	    _this3.createActions('carts', CartActions);
-	    _this3.createStore('carts', CartStore, _this3);
-	    return _this3;
-	  }
+	        _this3.createActions('carts', CartActions);
+	        _this3.createStore('carts', CartStore, _this3);
+	        return _this3;
+	    }
 	
-	  return AppFlux;
+	    return AppFlux;
 	}(_flummox.Flux);
 	
 	var flux = new AppFlux();
