@@ -1,0 +1,31 @@
+
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+  margin: 10px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+}
+
+.mdl-deep-orange{
+    background: #ee7600 !important;
+}
+
+.pull-left{
+    float:left;
+}
+
+.pull-right{
+    float:right;
+}
+
+.demo-list-icon {
+
+  width: 500px; 
+}
+
+.mdl-tooltip{
+  max-width: 500px !important;
+  background: #fff;
+}
