@@ -48,7 +48,7 @@ export default class BookList extends React.Component{
                                                             <i className="material-icons mdl-list__item-icon">book</i>
                                                             {c.title}
                                                         </span>
-                                                        <span class="mdl-list__item-sub-title">{c.count} copies</span>
+                                                        <span className="mdl-list__item-sub-title">{c.count} copies</span>
                                                       </li>
                                             })
                                         }
