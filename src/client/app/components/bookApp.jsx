@@ -14,7 +14,6 @@ const books = [
     {productId:7,title:'Harry Potter 7',path:'img/harry7.jpg',price:100}
 ];
 
-let nextCartId = 0;
 export class BookList extends Component{
     constructor(props){
         super(props);
