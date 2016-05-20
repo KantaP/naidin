@@ -1,9 +1,5 @@
 import React , { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import bookApp from '../redux/reducers';
 
-export const store = createStore(bookApp);
 const books = [
     {productId:1,title:'Harry Potter 1',path:'img/harry1.jpg',price:100},
     {productId:2,title:'Harry Potter 2',path:'img/harry2.jpg',price:100},
@@ -19,6 +15,7 @@ export class BookList extends Component{
         super(props);
     }
     componentDidMount(){
+        const { store } = this.context;
         this.unsubscribe = store.subscribe(()=>{
             this.forceUpdate();
         })
@@ -27,16 +24,15 @@ export class BookList extends Component{
         this.unsubscribe();
     }
     render(){
-        
+        const { store } = this.context;
         const state = store.getState();
         let newtotals;
         let sumtotals = 0;
         let discount = (state.carts.length - 1) * 10;
-        newtotals = state.carts.map(n => (n.amount * n.price) - ((n.amount * n.price) * discount) / 100);
+        newtotals = state.carts.map(n => (n.amount * n.price) - (((n.amount * n.price) * discount) / 100));
         for(let p of newtotals){
             sumtotals += p ;
         }
-        
         let display = {
             display: 'flex',
             flexFlow: 'row wrap'
@@ -111,4 +107,8 @@ export class BookList extends Component{
                     </div>
                 </div>)
     }
+}
+
+BookList.contextTypes = {
+    store: React.PropTypes.object
 }

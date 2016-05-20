@@ -1,8 +1,8 @@
 import carts from './carts';
 import { combineReducers } from 'redux';
 
-const bookApp = combineReducers({
+const reducers = combineReducers({
     carts
 })
 
-module.exports = bookApp;
+module.exports = reducers;
