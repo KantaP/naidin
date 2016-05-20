@@ -61,46 +61,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var render = function render() {
-	    var newtotals = void 0;
-	    var sumtotals = 0;
-	    var discount = (_bookApp.store.getState().carts.length - 1) * 10;
-	    newtotals = _bookApp.store.getState().carts.map(function (n) {
-	        return n.amount * n.price - n.amount * n.price * discount / 100;
-	    });
-	    var _iteratorNormalCompletion = true;
-	    var _didIteratorError = false;
-	    var _iteratorError = undefined;
-	
-	    try {
-	        for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var p = _step.value;
-	
-	            sumtotals += p;
-	        }
-	    } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	    } finally {
-	        try {
-	            if (!_iteratorNormalCompletion && _iterator.return) {
-	                _iterator.return();
-	            }
-	        } finally {
-	            if (_didIteratorError) {
-	                throw _iteratorError;
-	            }
-	        }
-	    }
-	
-	    _reactDom2.default.render(_react2.default.createElement(_bookApp.BookList, {
-	        carts: _bookApp.store.getState().carts,
-	        total: sumtotals
-	    }), document.getElementById('App'));
-	};
-	
-	_bookApp.store.subscribe(render);
-	render();
+	_reactDom2.default.render(_react2.default.createElement(_bookApp.BookList, null), document.getElementById('App'));
 
 /***/ },
 /* 1 */
@@ -20735,8 +20696,6 @@
 	var store = exports.store = (0, _redux.createStore)(_reducers2.default);
 	var books = [{ productId: 1, title: 'Harry Potter 1', path: 'img/harry1.jpg', price: 100 }, { productId: 2, title: 'Harry Potter 2', path: 'img/harry2.jpg', price: 100 }, { productId: 3, title: 'Harry Potter 3', path: 'img/harry3.jpg', price: 100 }, { productId: 4, title: 'Harry Potter 4', path: 'img/harry4.jpg', price: 100 }, { productId: 5, title: 'Harry Potter 5', path: 'img/harry5.jpg', price: 100 }, { productId: 6, title: 'Harry Potter 6', path: 'img/harry6.jpg', price: 100 }, { productId: 7, title: 'Harry Potter 7', path: 'img/harry7.jpg', price: 100 }];
 	
-	var nextCartId = 0;
-	
 	var BookList = exports.BookList = function (_Component) {
 	    _inherits(BookList, _Component);
 	
@@ -20747,9 +20706,54 @@
 	    }
 	
 	    _createClass(BookList, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            this.unsubscribe = store.subscribe(function () {
+	                _this2.forceUpdate();
+	            });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            this.unsubscribe();
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	
+	            var state = store.getState();
+	            var newtotals = void 0;
+	            var sumtotals = 0;
+	            var discount = (state.carts.length - 1) * 10;
+	            newtotals = state.carts.map(function (n) {
+	                return n.amount * n.price - n.amount * n.price * discount / 100;
+	            });
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+	
+	            try {
+	                for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var p = _step.value;
+	
+	                    sumtotals += p;
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
 	
 	            var display = {
 	                display: 'flex',
@@ -20783,7 +20787,7 @@
 	                            _react2.default.createElement(
 	                                'ul',
 	                                { className: 'demo-list-icon mdl-list' },
-	                                this.props.carts.map(function (c, index) {
+	                                state.carts.map(function (c, index) {
 	                                    return _react2.default.createElement(
 	                                        'li',
 	                                        { className: 'mdl-list__item', key: c.productId },
@@ -20799,7 +20803,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'span',
-	                                            { 'class': 'mdl-list__item-sub-title' },
+	                                            { className: 'mdl-list__item-sub-title' },
 	                                            c.amount,
 	                                            ' copies'
 	                                        )
@@ -20810,7 +20814,7 @@
 	                        _react2.default.createElement(
 	                            'h4',
 	                            null,
-	                            this.props.total,
+	                            sumtotals,
 	                            ' THB'
 	                        )
 	                    )
@@ -20848,7 +20852,7 @@
 	                                    'button',
 	                                    { className: 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange',
 	                                        onClick: function onClick() {
-	                                            var exist = _this2.props.carts.find(function (c) {
+	                                            var exist = state.carts.find(function (c) {
 	                                                return c.productId === d.productId;
 	                                            });
 	                                            if (exist) {

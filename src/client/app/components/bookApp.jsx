@@ -18,7 +18,25 @@ export class BookList extends Component{
     constructor(props){
         super(props);
     }
+    componentDidMount(){
+        this.unsubscribe = store.subscribe(()=>{
+            this.forceUpdate();
+        })
+    }
+    componentWillUnmount(){
+        this.unsubscribe();
+    }
     render(){
+        
+        const state = store.getState();
+        let newtotals;
+        let sumtotals = 0;
+        let discount = (state.carts.length - 1) * 10;
+        newtotals = state.carts.map(n => (n.amount * n.price) - ((n.amount * n.price) * discount) / 100);
+        for(let p of newtotals){
+            sumtotals += p ;
+        }
+        
         let display = {
             display: 'flex',
             flexFlow: 'row wrap'
@@ -36,7 +54,7 @@ export class BookList extends Component{
                                 <div className="mdl-tooltip" htmlFor="sc">
                                     <ul className="demo-list-icon mdl-list">
                                         {
-                                            this.props.carts.map((c,index)=>{
+                                            state.carts.map((c,index)=>{
                                                 return <li className="mdl-list__item" key={c.productId}>
                                                         <span className="mdl-list__item-primary-content">
                                                             <i className="material-icons mdl-list__item-icon">book</i>
@@ -48,7 +66,7 @@ export class BookList extends Component{
                                         }
                                     </ul>
                                 </div>
-                                <h4>{this.props.total} THB</h4>
+                                <h4>{sumtotals} THB</h4>
                             </div>   
                         </div>
                         <div className="mdl-cell mdl-cell--8-col mdl-cell--2-offset"  style={display}>
@@ -66,7 +84,7 @@ export class BookList extends Component{
                                                 <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange"
                                                 onClick={
                                                     () =>{
-                                                        let exist = this.props.carts.find(c =>{
+                                                        let exist = state.carts.find(c =>{
                                                             return c.productId === d.productId
                                                         })
                                                         if(exist){
