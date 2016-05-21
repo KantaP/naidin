@@ -11,7 +11,7 @@ const books = [
     {productId:7,title:'Harry Potter 7',path:'img/harry7.jpg',price:100}
 ];
 
-export class BookList extends Component{
+export default class BookList extends Component{
     constructor(props){
         super(props);
     }

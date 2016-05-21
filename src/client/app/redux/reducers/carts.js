@@ -11,7 +11,7 @@ const cart = (state , action) =>{
         default:
             return state;
     }
-}
+};
 
 const carts = (state = [] , action) =>{
     switch (action.type) {
@@ -30,6 +30,6 @@ const carts = (state = [] , action) =>{
         default:
             return state;
     }    
-}
+};
 
 export { carts };

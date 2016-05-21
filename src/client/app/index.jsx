@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BookList } from './components/bookApp.jsx';
+import { BookList } from './components';
 import { reducers } from './redux/reducers';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';

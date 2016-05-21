@@ -57,7 +57,7 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _bookApp = __webpack_require__(/*! ./components/bookApp.jsx */ 168);
+	var _components = __webpack_require__(/*! ./components */ 194);
 	
 	var _reducers = __webpack_require__(/*! ./redux/reducers */ 182);
 	
@@ -70,7 +70,7 @@
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: (0, _redux.createStore)(_reducers.reducers) },
-	    _react2.default.createElement(_bookApp.BookList, null)
+	    _react2.default.createElement(_components.BookList, null)
 	), document.getElementById('App'));
 
 /***/ },
@@ -20666,232 +20666,7 @@
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 168 */
-/*!***********************************************!*\
-  !*** ./src/client/app/components/bookApp.jsx ***!
-  \***********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.BookList = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var books = [{ productId: 1, title: 'Harry Potter 1', path: 'img/harry1.jpg', price: 100 }, { productId: 2, title: 'Harry Potter 2', path: 'img/harry2.jpg', price: 100 }, { productId: 3, title: 'Harry Potter 3', path: 'img/harry3.jpg', price: 100 }, { productId: 4, title: 'Harry Potter 4', path: 'img/harry4.jpg', price: 100 }, { productId: 5, title: 'Harry Potter 5', path: 'img/harry5.jpg', price: 100 }, { productId: 6, title: 'Harry Potter 6', path: 'img/harry6.jpg', price: 100 }, { productId: 7, title: 'Harry Potter 7', path: 'img/harry7.jpg', price: 100 }];
-	
-	var BookList = exports.BookList = function (_Component) {
-	    _inherits(BookList, _Component);
-	
-	    function BookList(props) {
-	        _classCallCheck(this, BookList);
-	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(BookList).call(this, props));
-	    }
-	
-	    _createClass(BookList, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this2 = this;
-	
-	            var store = this.context.store;
-	
-	            this.unsubscribe = store.subscribe(function () {
-	                _this2.forceUpdate();
-	            });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            this.unsubscribe();
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var store = this.context.store;
-	
-	            var state = store.getState();
-	            var sumtotals = 0;
-	            var discount = (state.carts.length - 1) * 10;
-	            var newtotals = state.carts.map(function (n) {
-	                return n.amount * n.price - n.amount * n.price * discount / 100;
-	            });
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
-	
-	            try {
-	                for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var p = _step.value;
-	
-	                    sumtotals += p;
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
-	            }
-	
-	            var display = {
-	                display: 'flex',
-	                flexFlow: 'row wrap'
-	            };
-	            var margin = {
-	                marginRight: 10
-	            };
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'mdl-grid' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'mdl-cell mdl-cell--8-col mdl-cell--2-offset' },
-	                    _react2.default.createElement(
-	                        'h1',
-	                        null,
-	                        'Harry Potter Sells'
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(
-	                            'div',
-	                            { id: 'sc', className: 'icon material-icons pull-left', style: margin },
-	                            'add_shopping_cart'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'mdl-tooltip', htmlFor: 'sc' },
-	                            _react2.default.createElement(
-	                                'ul',
-	                                { className: 'demo-list-icon mdl-list' },
-	                                state.carts.map(function (c, index) {
-	                                    return _react2.default.createElement(
-	                                        'li',
-	                                        { className: 'mdl-list__item', key: c.productId },
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'mdl-list__item-primary-content' },
-	                                            _react2.default.createElement(
-	                                                'i',
-	                                                { className: 'material-icons mdl-list__item-icon' },
-	                                                'book'
-	                                            ),
-	                                            c.title
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'mdl-list__item-sub-title' },
-	                                            c.amount,
-	                                            ' copies'
-	                                        )
-	                                    );
-	                                })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'h4',
-	                            null,
-	                            sumtotals,
-	                            ' THB'
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'mdl-cell mdl-cell--8-col mdl-cell--2-offset', style: display },
-	                    books.map(function (d, index) {
-	                        var background = {
-	                            background: 'url(\'' + d.path + '\') bottom 50% right 10% no-repeat #FFC200'
-	                        };
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'demo-card-square mdl-card mdl-shadow--2dp', key: d.productId },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'mdl-card__title mdl-card--expand', style: background },
-	                                _react2.default.createElement(
-	                                    'h2',
-	                                    { className: 'mdl-card__title-text' },
-	                                    d.title
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'mdl-card__supporting-text' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'pull-left' },
-	                                    'Price : ',
-	                                    d.price,
-	                                    ' THB'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'button',
-	                                    { className: 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange',
-	                                        onClick: function onClick() {
-	                                            var exist = state.carts.find(function (c) {
-	                                                return c.productId === d.productId;
-	                                            });
-	                                            if (exist) {
-	                                                store.dispatch({
-	                                                    type: 'UPDATE_CART',
-	                                                    productId: d.productId
-	                                                });
-	                                            } else {
-	                                                store.dispatch({
-	                                                    type: 'ADD_CART',
-	                                                    productId: d.productId,
-	                                                    price: d.price,
-	                                                    title: d.title
-	                                                });
-	                                            }
-	                                        } },
-	                                    _react2.default.createElement(
-	                                        'i',
-	                                        { className: 'material-icons' },
-	                                        'add'
-	                                    )
-	                                )
-	                            )
-	                        );
-	                    })
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return BookList;
-	}(_react.Component);
-	
-	BookList.contextTypes = {
-	    store: _react2.default.PropTypes.object
-	};
-
-/***/ },
+/* 168 */,
 /* 169 */
 /*!******************************!*\
   !*** ./~/redux/lib/index.js ***!
@@ -22578,6 +22353,256 @@
 	module.exports = invariant;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 3)))
+
+/***/ },
+/* 193 */
+/*!****************************************************!*\
+  !*** ./src/client/app/components/bookApp/index.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var books = [{ productId: 1, title: 'Harry Potter 1', path: 'img/harry1.jpg', price: 100 }, { productId: 2, title: 'Harry Potter 2', path: 'img/harry2.jpg', price: 100 }, { productId: 3, title: 'Harry Potter 3', path: 'img/harry3.jpg', price: 100 }, { productId: 4, title: 'Harry Potter 4', path: 'img/harry4.jpg', price: 100 }, { productId: 5, title: 'Harry Potter 5', path: 'img/harry5.jpg', price: 100 }, { productId: 6, title: 'Harry Potter 6', path: 'img/harry6.jpg', price: 100 }, { productId: 7, title: 'Harry Potter 7', path: 'img/harry7.jpg', price: 100 }];
+	
+	var BookList = function (_Component) {
+	    _inherits(BookList, _Component);
+	
+	    function BookList(props) {
+	        _classCallCheck(this, BookList);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(BookList).call(this, props));
+	    }
+	
+	    _createClass(BookList, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            var store = this.context.store;
+	
+	            this.unsubscribe = store.subscribe(function () {
+	                _this2.forceUpdate();
+	            });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            this.unsubscribe();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var store = this.context.store;
+	
+	            var state = store.getState();
+	            var sumtotals = 0;
+	            var discount = (state.carts.length - 1) * 10;
+	            var newtotals = state.carts.map(function (n) {
+	                return n.amount * n.price - n.amount * n.price * discount / 100;
+	            });
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+	
+	            try {
+	                for (var _iterator = newtotals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var p = _step.value;
+	
+	                    sumtotals += p;
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+	
+	            var display = {
+	                display: 'flex',
+	                flexFlow: 'row wrap'
+	            };
+	            var margin = {
+	                marginRight: 10
+	            };
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'mdl-grid' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'mdl-cell mdl-cell--8-col mdl-cell--2-offset' },
+	                    _react2.default.createElement(
+	                        'h1',
+	                        null,
+	                        'Harry Potter Sells'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'div',
+	                            { id: 'sc', className: 'icon material-icons pull-left', style: margin },
+	                            'add_shopping_cart'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'mdl-tooltip', htmlFor: 'sc' },
+	                            _react2.default.createElement(
+	                                'ul',
+	                                { className: 'demo-list-icon mdl-list' },
+	                                state.carts.map(function (c, index) {
+	                                    return _react2.default.createElement(
+	                                        'li',
+	                                        { className: 'mdl-list__item', key: c.productId },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'mdl-list__item-primary-content' },
+	                                            _react2.default.createElement(
+	                                                'i',
+	                                                { className: 'material-icons mdl-list__item-icon' },
+	                                                'book'
+	                                            ),
+	                                            c.title
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'mdl-list__item-sub-title' },
+	                                            c.amount,
+	                                            ' copies'
+	                                        )
+	                                    );
+	                                })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'h4',
+	                            null,
+	                            sumtotals,
+	                            ' THB'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'mdl-cell mdl-cell--8-col mdl-cell--2-offset', style: display },
+	                    books.map(function (d, index) {
+	                        var background = {
+	                            background: 'url(\'' + d.path + '\') bottom 50% right 10% no-repeat #FFC200'
+	                        };
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'demo-card-square mdl-card mdl-shadow--2dp', key: d.productId },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mdl-card__title mdl-card--expand', style: background },
+	                                _react2.default.createElement(
+	                                    'h2',
+	                                    { className: 'mdl-card__title-text' },
+	                                    d.title
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mdl-card__supporting-text' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'pull-left' },
+	                                    'Price : ',
+	                                    d.price,
+	                                    ' THB'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange',
+	                                        onClick: function onClick() {
+	                                            var exist = state.carts.find(function (c) {
+	                                                return c.productId === d.productId;
+	                                            });
+	                                            if (exist) {
+	                                                store.dispatch({
+	                                                    type: 'UPDATE_CART',
+	                                                    productId: d.productId
+	                                                });
+	                                            } else {
+	                                                store.dispatch({
+	                                                    type: 'ADD_CART',
+	                                                    productId: d.productId,
+	                                                    price: d.price,
+	                                                    title: d.title
+	                                                });
+	                                            }
+	                                        } },
+	                                    _react2.default.createElement(
+	                                        'i',
+	                                        { className: 'material-icons' },
+	                                        'add'
+	                                    )
+	                                )
+	                            )
+	                        );
+	                    })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return BookList;
+	}(_react.Component);
+	
+	exports.default = BookList;
+	
+	
+	BookList.contextTypes = {
+	    store: _react2.default.PropTypes.object
+	};
+
+/***/ },
+/* 194 */
+/*!********************************************!*\
+  !*** ./src/client/app/components/index.js ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.BookList = undefined;
+	
+	var _bookApp = __webpack_require__(/*! ./bookApp */ 193);
+	
+	var _bookApp2 = _interopRequireDefault(_bookApp);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.BookList = _bookApp2.default;
 
 /***/ }
 /******/ ]);
