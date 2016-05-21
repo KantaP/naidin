@@ -11,6 +11,72 @@ const books = [
     {productId:7,title:'Harry Potter 7',path:'img/harry7.jpg',price:100}
 ];
 
+class Book extends Component{
+    constructor(props){
+        super(props);
+    }
+    componentDidMount(){
+        const { store } = this.context;
+        this.unsubscribe = store.subscribe(()=>{
+            this.forceUpdate();
+        })
+    }
+    componentWillUnmount(){
+        this.unsubscribe();
+    }
+    render(){
+        const { store } = this.context;
+        const state = store.getState();
+        let background = {
+            background: `url('${this.props.imagePath}') bottom 50% right 10% no-repeat #FFC200`
+        }
+        return (
+             <div className="demo-card-square mdl-card mdl-shadow--2dp">
+                <div className="mdl-card__title mdl-card--expand" style={background}>
+                    <h2 className="mdl-card__title-text">{this.props.title}</h2>
+                </div>
+                <div className="mdl-card__supporting-text">
+                    <span className="pull-left">Price : {this.props.price} THB</span>
+                    <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange"
+                    onClick={
+                        () =>{
+                            let exist = state.carts.find(c =>{
+                                return c.productId === this.props.productId
+                            })
+                            if(exist){
+                                store.dispatch({
+                                    type: 'UPDATE_CART',
+                                    productId: this.props.productId
+                                })
+                            }else{
+                                store.dispatch({
+                                    type: 'ADD_CART',
+                                    productId: this.props.productId,
+                                    price: this.props.price,
+                                    title: this.props.title
+                                })
+                            }
+                        }
+                    }>
+                        <i className="material-icons">add</i>
+                    </button>
+                </div>
+            </div>
+        )
+    }
+}
+
+Book.propTypes = {
+    title: React.PropTypes.string.isRequired,
+    price: React.PropTypes.number.isRequired,
+    productId: React.PropTypes.number.isRequired,
+    imagePath: React.PropTypes.string
+}
+
+Book.contextTypes = {
+    store: React.PropTypes.object
+}
+
 export default class BookList extends Component{
     constructor(props){
         super(props);
@@ -68,40 +134,13 @@ export default class BookList extends Component{
                         <div className="mdl-cell mdl-cell--8-col mdl-cell--2-offset"  style={display}>
                         {
                             books.map((d,index)=>{
-                                let background = {
-                                    background: `url('${d.path}') bottom 50% right 10% no-repeat #FFC200`
-                                }
-                                return <div className="demo-card-square mdl-card mdl-shadow--2dp" key={d.productId}>
-                                            <div className="mdl-card__title mdl-card--expand" style={background}>
-                                                <h2 className="mdl-card__title-text">{d.title}</h2>
-                                            </div>
-                                            <div className="mdl-card__supporting-text">
-                                                <span className="pull-left">Price : {d.price} THB</span>
-                                                <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange"
-                                                onClick={
-                                                    () =>{
-                                                        let exist = state.carts.find(c =>{
-                                                            return c.productId === d.productId
-                                                        })
-                                                        if(exist){
-                                                            store.dispatch({
-                                                                type: 'UPDATE_CART',
-                                                                productId: d.productId
-                                                            })
-                                                        }else{
-                                                            store.dispatch({
-                                                                type: 'ADD_CART',
-                                                                productId: d.productId,
-                                                                price: d.price,
-                                                                title: d.title
-                                                            })
-                                                        }
-                                                    }
-                                                }>
-                                                    <i className="material-icons">add</i>
-                                                </button>
-                                            </div>
-                                        </div>
+                                return <Book 
+                                            key={index}
+                                            title={d.title}
+                                            price={d.price}
+                                            productId={d.productId}
+                                            imagePath={d.path}
+                                       />
                             })
                         }
                     </div>

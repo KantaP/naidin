@@ -22383,8 +22383,112 @@
 	
 	var books = [{ productId: 1, title: 'Harry Potter 1', path: 'img/harry1.jpg', price: 100 }, { productId: 2, title: 'Harry Potter 2', path: 'img/harry2.jpg', price: 100 }, { productId: 3, title: 'Harry Potter 3', path: 'img/harry3.jpg', price: 100 }, { productId: 4, title: 'Harry Potter 4', path: 'img/harry4.jpg', price: 100 }, { productId: 5, title: 'Harry Potter 5', path: 'img/harry5.jpg', price: 100 }, { productId: 6, title: 'Harry Potter 6', path: 'img/harry6.jpg', price: 100 }, { productId: 7, title: 'Harry Potter 7', path: 'img/harry7.jpg', price: 100 }];
 	
-	var BookList = function (_Component) {
-	    _inherits(BookList, _Component);
+	var Book = function (_Component) {
+	    _inherits(Book, _Component);
+	
+	    function Book(props) {
+	        _classCallCheck(this, Book);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Book).call(this, props));
+	    }
+	
+	    _createClass(Book, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            var store = this.context.store;
+	
+	            this.unsubscribe = store.subscribe(function () {
+	                _this2.forceUpdate();
+	            });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            this.unsubscribe();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+	
+	            var store = this.context.store;
+	
+	            var state = store.getState();
+	            var background = {
+	                background: 'url(\'' + this.props.imagePath + '\') bottom 50% right 10% no-repeat #FFC200'
+	            };
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'demo-card-square mdl-card mdl-shadow--2dp' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'mdl-card__title mdl-card--expand', style: background },
+	                    _react2.default.createElement(
+	                        'h2',
+	                        { className: 'mdl-card__title-text' },
+	                        this.props.title
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'mdl-card__supporting-text' },
+	                    _react2.default.createElement(
+	                        'span',
+	                        { className: 'pull-left' },
+	                        'Price : ',
+	                        this.props.price,
+	                        ' THB'
+	                    ),
+	                    _react2.default.createElement(
+	                        'button',
+	                        { className: 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange',
+	                            onClick: function onClick() {
+	                                var exist = state.carts.find(function (c) {
+	                                    return c.productId === _this3.props.productId;
+	                                });
+	                                if (exist) {
+	                                    store.dispatch({
+	                                        type: 'UPDATE_CART',
+	                                        productId: _this3.props.productId
+	                                    });
+	                                } else {
+	                                    store.dispatch({
+	                                        type: 'ADD_CART',
+	                                        productId: _this3.props.productId,
+	                                        price: _this3.props.price,
+	                                        title: _this3.props.title
+	                                    });
+	                                }
+	                            } },
+	                        _react2.default.createElement(
+	                            'i',
+	                            { className: 'material-icons' },
+	                            'add'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Book;
+	}(_react.Component);
+	
+	Book.propTypes = {
+	    title: _react2.default.PropTypes.string.isRequired,
+	    price: _react2.default.PropTypes.number.isRequired,
+	    productId: _react2.default.PropTypes.number.isRequired,
+	    imagePath: _react2.default.PropTypes.string
+	};
+	
+	Book.contextTypes = {
+	    store: _react2.default.PropTypes.object
+	};
+	
+	var BookList = function (_Component2) {
+	    _inherits(BookList, _Component2);
 	
 	    function BookList(props) {
 	        _classCallCheck(this, BookList);
@@ -22395,12 +22499,12 @@
 	    _createClass(BookList, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _this2 = this;
+	            var _this5 = this;
 	
 	            var store = this.context.store;
 	
 	            this.unsubscribe = store.subscribe(function () {
-	                _this2.forceUpdate();
+	                _this5.forceUpdate();
 	            });
 	        }
 	    }, {
@@ -22512,60 +22616,13 @@
 	                    'div',
 	                    { className: 'mdl-cell mdl-cell--8-col mdl-cell--2-offset', style: display },
 	                    books.map(function (d, index) {
-	                        var background = {
-	                            background: 'url(\'' + d.path + '\') bottom 50% right 10% no-repeat #FFC200'
-	                        };
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { className: 'demo-card-square mdl-card mdl-shadow--2dp', key: d.productId },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'mdl-card__title mdl-card--expand', style: background },
-	                                _react2.default.createElement(
-	                                    'h2',
-	                                    { className: 'mdl-card__title-text' },
-	                                    d.title
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'mdl-card__supporting-text' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'pull-left' },
-	                                    'Price : ',
-	                                    d.price,
-	                                    ' THB'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'button',
-	                                    { className: 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange',
-	                                        onClick: function onClick() {
-	                                            var exist = state.carts.find(function (c) {
-	                                                return c.productId === d.productId;
-	                                            });
-	                                            if (exist) {
-	                                                store.dispatch({
-	                                                    type: 'UPDATE_CART',
-	                                                    productId: d.productId
-	                                                });
-	                                            } else {
-	                                                store.dispatch({
-	                                                    type: 'ADD_CART',
-	                                                    productId: d.productId,
-	                                                    price: d.price,
-	                                                    title: d.title
-	                                                });
-	                                            }
-	                                        } },
-	                                    _react2.default.createElement(
-	                                        'i',
-	                                        { className: 'material-icons' },
-	                                        'add'
-	                                    )
-	                                )
-	                            )
-	                        );
+	                        return _react2.default.createElement(Book, {
+	                            key: index,
+	                            title: d.title,
+	                            price: d.price,
+	                            productId: d.productId,
+	                            imagePath: d.path
+	                        });
 	                    })
 	                )
 	            );
