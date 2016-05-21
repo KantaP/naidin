@@ -22381,7 +22381,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var books = [{ productId: 1, title: 'Harry Potter 1', path: 'img/harry1.jpg', price: 100 }, { productId: 2, title: 'Harry Potter 2', path: 'img/harry2.jpg', price: 100 }, { productId: 3, title: 'Harry Potter 3', path: 'img/harry3.jpg', price: 100 }, { productId: 4, title: 'Harry Potter 4', path: 'img/harry4.jpg', price: 100 }, { productId: 5, title: 'Harry Potter 5', path: 'img/harry5.jpg', price: 100 }, { productId: 6, title: 'Harry Potter 6', path: 'img/harry6.jpg', price: 100 }, { productId: 7, title: 'Harry Potter 7', path: 'img/harry7.jpg', price: 100 }];
+	var bookItems = [{ productId: 1, title: 'Harry Potter 1', path: 'img/harry1.jpg', price: 100 }, { productId: 2, title: 'Harry Potter 2', path: 'img/harry2.jpg', price: 100 }, { productId: 3, title: 'Harry Potter 3', path: 'img/harry3.jpg', price: 100 }, { productId: 4, title: 'Harry Potter 4', path: 'img/harry4.jpg', price: 100 }, { productId: 5, title: 'Harry Potter 5', path: 'img/harry5.jpg', price: 100 }, { productId: 6, title: 'Harry Potter 6', path: 'img/harry6.jpg', price: 100 }, { productId: 7, title: 'Harry Potter 7', path: 'img/harry7.jpg', price: 100 }];
 	
 	var Book = function (_Component) {
 	    _inherits(Book, _Component);
@@ -22596,7 +22596,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'mdl-cell mdl-cell--8-col mdl-cell--2-offset', style: display },
-	                    books.map(function (d, index) {
+	                    bookItems.map(function (d, index) {
 	                        return _react2.default.createElement(Book, {
 	                            key: index,
 	                            title: d.title,

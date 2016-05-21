@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 
 
-const books = [
+const bookItems = [
     {productId:1,title:'Harry Potter 1',path:'img/harry1.jpg',price:100},
     {productId:2,title:'Harry Potter 2',path:'img/harry2.jpg',price:100},
     {productId:3,title:'Harry Potter 3',path:'img/harry3.jpg',price:100},
@@ -121,7 +121,7 @@ export default class BookList extends Component{
                         </div>
                         <div className="mdl-cell mdl-cell--8-col mdl-cell--2-offset"  style={display}>
                         {
-                            books.map((d,index)=>{
+                            bookItems.map((d,index)=>{
                                 return <Book 
                                             key={index}
                                             title={d.title}
