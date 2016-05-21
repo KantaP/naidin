@@ -61,8 +61,6 @@
 	
 	var _reducers = __webpack_require__(/*! ./redux/reducers */ 182);
 	
-	var _reducers2 = _interopRequireDefault(_reducers);
-	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 184);
 	
 	var _redux = __webpack_require__(/*! redux */ 169);
@@ -71,7 +69,7 @@
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
-	    { store: (0, _redux.createStore)(_reducers2.default) },
+	    { store: (0, _redux.createStore)(_reducers.reducers) },
 	    _react2.default.createElement(_bookApp.BookList, null)
 	), document.getElementById('App'));
 
@@ -20728,10 +20726,9 @@
 	            var store = this.context.store;
 	
 	            var state = store.getState();
-	            var newtotals = void 0;
 	            var sumtotals = 0;
 	            var discount = (state.carts.length - 1) * 10;
-	            newtotals = state.carts.map(function (n) {
+	            var newtotals = state.carts.map(function (n) {
 	                return n.amount * n.price - n.amount * n.price * discount / 100;
 	            });
 	            var _iteratorNormalCompletion = true;
@@ -20832,7 +20829,7 @@
 	                        };
 	                        return _react2.default.createElement(
 	                            'div',
-	                            { className: 'demo-card-square mdl-card mdl-shadow--2dp', key: index },
+	                            { className: 'demo-card-square mdl-card mdl-shadow--2dp', key: d.productId },
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'mdl-card__title mdl-card--expand', style: background },
@@ -21782,19 +21779,20 @@
 
 	'use strict';
 	
-	var _carts = __webpack_require__(/*! ./carts */ 183);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.reducers = undefined;
 	
-	var _carts2 = _interopRequireDefault(_carts);
+	var _carts = __webpack_require__(/*! ./carts */ 183);
 	
 	var _redux = __webpack_require__(/*! redux */ 169);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	var reducers = (0, _redux.combineReducers)({
-	    carts: _carts2.default
+	    carts: _carts.carts
 	});
 	
-	module.exports = reducers;
+	exports.reducers = reducers;
 
 /***/ },
 /* 183 */
@@ -21804,6 +21802,10 @@
 /***/ function(module, exports) {
 
 	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
@@ -21844,7 +21846,7 @@
 	    }
 	};
 	
-	module.exports = carts;
+	exports.carts = carts;
 
 /***/ },
 /* 184 */

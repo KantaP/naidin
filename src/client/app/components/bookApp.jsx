@@ -1,5 +1,6 @@
 import React , { Component } from 'react';
 
+
 const books = [
     {productId:1,title:'Harry Potter 1',path:'img/harry1.jpg',price:100},
     {productId:2,title:'Harry Potter 2',path:'img/harry2.jpg',price:100},
@@ -26,10 +27,9 @@ export class BookList extends Component{
     render(){
         const { store } = this.context;
         const state = store.getState();
-        let newtotals;
         let sumtotals = 0;
         let discount = (state.carts.length - 1) * 10;
-        newtotals = state.carts.map(n => (n.amount * n.price) - (((n.amount * n.price) * discount) / 100));
+        let newtotals = state.carts.map(n => (n.amount * n.price) - (((n.amount * n.price) * discount) / 100));
         for(let p of newtotals){
             sumtotals += p ;
         }
@@ -71,7 +71,7 @@ export class BookList extends Component{
                                 let background = {
                                     background: `url('${d.path}') bottom 50% right 10% no-repeat #FFC200`
                                 }
-                                return <div className="demo-card-square mdl-card mdl-shadow--2dp" key={index}>
+                                return <div className="demo-card-square mdl-card mdl-shadow--2dp" key={d.productId}>
                                             <div className="mdl-card__title mdl-card--expand" style={background}>
                                                 <h2 className="mdl-card__title-text">{d.title}</h2>
                                             </div>
