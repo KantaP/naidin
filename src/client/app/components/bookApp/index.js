@@ -15,17 +15,8 @@ class Book extends Component{
     constructor(props){
         super(props);
     }
-    componentDidMount(){
-        const { store } = this.context;
-        this.unsubscribe = store.subscribe(()=>{
-            this.forceUpdate();
-        })
-    }
-    componentWillUnmount(){
-        this.unsubscribe();
-    }
     render(){
-        const { store } = this.context;
+        const { store } = this.props;
         const state = store.getState();
         let background = {
             background: `url('${this.props.imagePath}') bottom 50% right 10% no-repeat #FFC200`
@@ -70,10 +61,7 @@ Book.propTypes = {
     title: React.PropTypes.string.isRequired,
     price: React.PropTypes.number.isRequired,
     productId: React.PropTypes.number.isRequired,
-    imagePath: React.PropTypes.string
-}
-
-Book.contextTypes = {
+    imagePath: React.PropTypes.string,
     store: React.PropTypes.object
 }
 
@@ -140,6 +128,7 @@ export default class BookList extends Component{
                                             price={d.price}
                                             productId={d.productId}
                                             imagePath={d.path}
+                                            store={store}
                                        />
                             })
                         }

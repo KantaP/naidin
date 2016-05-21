@@ -22393,27 +22393,11 @@
 	    }
 	
 	    _createClass(Book, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this2 = this;
-	
-	            var store = this.context.store;
-	
-	            this.unsubscribe = store.subscribe(function () {
-	                _this2.forceUpdate();
-	            });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            this.unsubscribe();
-	        }
-	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
+	            var _this2 = this;
 	
-	            var store = this.context.store;
+	            var store = this.props.store;
 	
 	            var state = store.getState();
 	            var background = {
@@ -22446,19 +22430,19 @@
 	                        { className: 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right mdl-deep-orange',
 	                            onClick: function onClick() {
 	                                var exist = state.carts.find(function (c) {
-	                                    return c.productId === _this3.props.productId;
+	                                    return c.productId === _this2.props.productId;
 	                                });
 	                                if (exist) {
 	                                    store.dispatch({
 	                                        type: 'UPDATE_CART',
-	                                        productId: _this3.props.productId
+	                                        productId: _this2.props.productId
 	                                    });
 	                                } else {
 	                                    store.dispatch({
 	                                        type: 'ADD_CART',
-	                                        productId: _this3.props.productId,
-	                                        price: _this3.props.price,
-	                                        title: _this3.props.title
+	                                        productId: _this2.props.productId,
+	                                        price: _this2.props.price,
+	                                        title: _this2.props.title
 	                                    });
 	                                }
 	                            } },
@@ -22480,10 +22464,7 @@
 	    title: _react2.default.PropTypes.string.isRequired,
 	    price: _react2.default.PropTypes.number.isRequired,
 	    productId: _react2.default.PropTypes.number.isRequired,
-	    imagePath: _react2.default.PropTypes.string
-	};
-	
-	Book.contextTypes = {
+	    imagePath: _react2.default.PropTypes.string,
 	    store: _react2.default.PropTypes.object
 	};
 	
@@ -22499,12 +22480,12 @@
 	    _createClass(BookList, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _this5 = this;
+	            var _this4 = this;
 	
 	            var store = this.context.store;
 	
 	            this.unsubscribe = store.subscribe(function () {
-	                _this5.forceUpdate();
+	                _this4.forceUpdate();
 	            });
 	        }
 	    }, {
@@ -22621,7 +22602,8 @@
 	                            title: d.title,
 	                            price: d.price,
 	                            productId: d.productId,
-	                            imagePath: d.path
+	                            imagePath: d.path,
+	                            store: store
 	                        });
 	                    })
 	                )
